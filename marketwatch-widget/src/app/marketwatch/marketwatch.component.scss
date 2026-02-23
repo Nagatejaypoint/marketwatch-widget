@@ -1,0 +1,57 @@
+.page {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eef2f7;
+}
+
+.widget {
+    border: 2px solid #ccc;
+    padding: 16px;
+    width: 420px;
+    border-radius: 10px;
+}
+
+.alert {
+    border-color: red;
+}
+
+.status {
+    width: 10px;
+    height: 10px;
+    background: gray;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status.active {
+    background: green;
+}
+
+.controls {
+    display: flex;
+    gap: 12px;
+    margin: 14px 0;
+}
+
+.controls input {
+    flex: 1;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.controls button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+.controls button:hover {
+    background: #1d4ed8;
+}
