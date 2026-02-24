@@ -1,27 +1,34 @@
-# MarketwatchWidget
+# MarketWatch Widget
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.6.
+A high-performance, real-time price monitoring widget built with Angular 18 and Chart.js.
 
-## Development server
+## ✨ Features
+- **Real-time Price Stream**: Simulated WebSocket data feed with live updates.
+- **Dynamic Visualization**: Responsive line chart with optimized rendering.
+- **Smart Alerts**: Visual warnings when prices exceed user-defined thresholds.
+- **Power Controls**: Pause/Resume functionality to manage data intake.
+- **Trend Indicators**: Live "Up/Down" markers based on price movements.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## 🚀 Technical Optimizations
+This project was built with a strong focus on **performance** and **best practices**:
 
-## Code scaffolding
+### ⚡ Runtime Efficiency
+- **Zoneless Readiness**: The price generation interval runs outside Angular's zone (`runOutsideAngular`) to prevent unnecessary global change detection cycles.
+- **Granular Chart.js**: Only required Chart.js modules are registered and imported, significantly reducing the final bundle size through tree-shaking.
+- **OnPush Strategy**: Uses `ChangeDetectionStrategy.OnPush` and manual `ChangeDetectorRef` triggers to ensure the UI only re-renders when data actually changes.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 📁 Memory & Resource Management
+- **Subscription Lifecycle**: Automatic cleanup of RxJS subscriptions and Chart instances during `OnDestroy` to prevent memory leaks.
+- **Efficient Updates**: Uses `chart.update('none')` to bypass expensive layout animations during data ingestion.
+- **Numerical Precision**: Uses bitwise-equivalent Math operations instead of string-based `.toFixed()` for high-frequency calculations.
 
-## Build
+### 🛠️ Architecture
+- **Dependency Injection**: Uses constructor-based injection for clean, testable, and standard-compliant service management.
+- **State Management**: Local component state is strictly typed and managed using standard Angular lifecycle hooks (`ngOnInit`, `ngAfterViewInit`, `ngOnDestroy`).
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 🛠️ Quick Start
+1. **Install**: `npm install`
+2. **Start**: `npm start`
+3. **View**: Open `http://localhost:4200/`
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+---

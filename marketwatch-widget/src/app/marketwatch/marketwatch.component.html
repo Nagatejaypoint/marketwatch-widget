@@ -1,58 +1,22 @@
-<!-- <div class="widget">
-
-  <div class="header">
-    <h2>MarketWatch</h2>
-    <button (click)="toggle()">
-      {{ paused ? 'Resume' : 'Pause' }}
-    </button>
-  </div>
-
-  <div class="price-box">
-    <span class="price">{{ latest | number:'1.2-2' }}</span>
-    <span class="trend" [class.up]="trend === 'up'" [class.down]="trend === 'down'">
-      {{ trend === 'up' ? '▲' : '▼' }}
-    </span>
-  </div>
-
-  <div class="chart-box">
-    <canvas #chart width="400" height="200"></canvas>
-  </div>
-
-  <div class="controls">
-    <label>Threshold: {{ threshold }}</label>
-    <input type="range" min="100" max="200" [(ngModel)]="threshold">
-  </div>
-
-</div> -->
-
 <div class="page">
-    <div class="widget" [class.alert]="latest > threshold">
-
-        <div class="header">
-            <h3>MarketWatch</h3>
-            <span class="status" [class.active]="!paused"></span>
-        </div>
-
-        <h2>
-            {{ latest }}
-            <span *ngIf="trend==='up'">⬆</span>
-            <span *ngIf="trend==='down'">⬇</span>
-        </h2>
-
-        <!-- <input type="number" [(ngModel)]="threshold" placeholder="Threshold" />
-
-        <button (click)="toggle()">
-            {{ paused ? 'Resume' : 'Pause' }}
-        </button> -->
-        <div class="controls">
-            <input type="number" [(ngModel)]="threshold" placeholder="Threshold" />
-
-            <button (click)="toggle()">
-                {{ paused ? 'Resume' : 'Pause Feed' }}
-            </button>
-        </div>
-
-        <canvas #chart></canvas>
-
+  <div class="widget" [class.alert]="latest > threshold">
+    <div class="header">
+      <h3>MarketWatch Service</h3>
+      <span class="status" [class.active]="!paused"></span>
     </div>
+    <div class="price-container">
+      <h2 class="price">{{ latest | number:'1.2-2' }}</h2>
+      <span class="trend" *ngIf="trend" [class.up]="trend==='up'" [class.down]="trend==='down'">
+        {{ trend === 'up' ? '⬆' : '⬇' }}
+      </span>
+    </div>
+    <div class="controls">
+      <div class="input-group">
+        <label>Threshold</label>
+        <input type="number" [ngModel]="threshold" (ngModelChange)="onThresholdChange($event)" />
+      </div>
+      <button (click)="toggle()" [class.paused]="paused">{{ paused ? 'Resume' : 'Pause' }}</button>
+    </div>
+    <div class="chart-container"><canvas #chart></canvas></div>
+  </div>
 </div>
