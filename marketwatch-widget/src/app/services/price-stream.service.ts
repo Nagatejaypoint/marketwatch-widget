@@ -1,10 +1,10 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PriceStreamService {
   private subject = new Subject<number>();
-  private timer: any;
+  private timer: ReturnType<typeof setInterval> | null = null;
 
   constructor(private zone: NgZone) { }
 
@@ -15,7 +15,12 @@ export class PriceStreamService {
     this.zone.runOutsideAngular(() => this.timer = setInterval(emit, 2000));
   }
 
-  stop() { clearInterval(this.timer); this.timer = null; }
+  stop() {
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
+  }
 
-  get stream() { return this.subject.asObservable(); }
+  get stream(): Observable<number> { return this.subject.asObservable(); }
 }

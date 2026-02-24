@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PriceStreamService } from '../services/price-stream.service';
 import { Chart, registerables } from 'chart.js';
+import { Subscription } from 'rxjs';
 
 Chart.register(...registerables);
 
@@ -19,7 +20,7 @@ export class MarketwatchComponent implements OnInit, OnDestroy, AfterViewInit {
   latest = 0; prev = 0; threshold = 150;
   trend: 'up' | 'down' | null = null;
   paused = false;
-  sub: any;
+  sub?: Subscription;
 
   constructor(private service: PriceStreamService, private cdr: ChangeDetectorRef) { }
 
@@ -45,7 +46,7 @@ export class MarketwatchComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
 
-  onThresholdChange(v: any) {
+  onThresholdChange(v: string | number) {
     this.threshold = typeof v === 'string' ? parseFloat(v) : v;
     this.cdr.detectChanges();
   }
@@ -57,7 +58,7 @@ export class MarketwatchComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.sub?.unsubscribe();
     this.service.stop();
     this.chart?.destroy();
   }
